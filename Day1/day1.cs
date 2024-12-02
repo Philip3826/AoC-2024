@@ -10,31 +10,27 @@ class Day1
         List<int> destinationList1 = new List<int>();
         List<int> destinationList2 = new List<int>();
 
-        Console.WriteLine("Enter the elements for both columns (enter an empty line to finish):");
-        while (true)
+        string input;
+        while (!string.IsNullOrWhiteSpace(input = Console.ReadLine()))
         {
-            string input = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                break;
-            }
 
             string[] parts = input.Split("   ");
-            if (parts.Length != 2)
+            if (parts.Length != 2 || !int.TryParse(parts[0], out var num1) || !int.TryParse(parts[1], out var num2))
             {
                 Console.WriteLine("Please enter exactly two numbers separated by three spaces.");
                 continue;
             }
 
-            destinationList1.Add(int.Parse(parts[0]));
-            destinationList2.Add(int.Parse(parts[1]));
 
-            destinationList1.Sort();
-            destinationList2.Sort();
+            destinationList1.Add(num1);
+            destinationList2.Add(num2);
 
-            Console.WriteLine(FindSimilarityScore(destinationList1, destinationList2));
-            Console.WriteLine(FindTotalSimilarityScore(destinationList1, destinationList2));
         }
+        destinationList1.Sort();
+        destinationList2.Sort();
+
+        Console.WriteLine(FindSimilarityScore(destinationList1, destinationList2));
+        Console.WriteLine(FindTotalSimilarityScore(destinationList1, destinationList2));
 
     }
 

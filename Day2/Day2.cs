@@ -7,19 +7,14 @@ class Day2
     static void Main(string[] args)
     {
         List<List<int>> Reports = new List<List<int>>();
+        string input;
 
-        while (true)
+        while (!string.IsNullOrWhiteSpace(input = Console.ReadLine()))
         {
-            string input = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(input))
+            var parsedNumbers = new List<int>();
+            foreach (var number in input.Split(' '))
             {
-                break;
-            }
-            string[] numbers = input.Split(' ');
-            List<int> parsedNumbers = new List<int>();
-            foreach (string number in numbers)
-            {
-                if (int.TryParse(number, out int parsedNumber))
+                if (int.TryParse(number, out var parsedNumber))
                 {
                     parsedNumbers.Add(parsedNumber);
                 }
@@ -69,13 +64,8 @@ class Day2
         for (int i = 0; i < report.Count - 1; i++)
         {
             int diff = report[i] - report[i + 1];
-
-            if (Math.Abs(diff) == 0 || Math.Abs(diff) > 3)
+            if (Math.Abs(diff) == 0 || Math.Abs(diff) > 3 || Math.Sign(diff) != orientation)
                 return false;
-
-            if (Math.Sign(diff) != Math.Sign(orientation))
-                return false;
-
         }
 
         return true;
